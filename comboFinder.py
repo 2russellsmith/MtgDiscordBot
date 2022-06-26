@@ -23,6 +23,8 @@ def combo_finder(file: str, verbose: bool):
                 results += str(combo['c']) + "\n"
             count += 1
     comboDataFile.close()
+    if count == 0:
+        return "AN HONEST MAGIC PLAYER! NOT ONE COMBO FOUND!!"
     return "***Combo count:" + str(count) + "***\n\n" + results
 
 
