@@ -1,0 +1,13 @@
+Combo count:10
+
+['Mystic Sanctuary', 'Trade Routes', 'Temporal Manipulation'] - Infinite turns.
+['Mystic Sanctuary', 'Trade Routes', 'Time Warp'] - Infinite turns.
+['Mystic Sanctuary', 'Trade Routes', 'Walk the Aeons'] - Infinite turns.
+['Azusa, Lost but Seeking', 'Life from the Loam', 'Walk the Aeons'] - Infinite turns.
+['Glacial Chasm', 'Zuran Orb', 'Crucible of Worlds'] - You can not take damage.
+['Crucible of Worlds', 'Trade Routes', 'Bala Ged Recovery', 'Time Warp'] - Infinite turns.
+['Walk the Aeons', 'Life from the Loam', 'Azusa, Lost but Seeking', 'Mystic Sanctuary'] - Infinite turns. Infinite life. Infinite damage. Infinite landfall.
+['Walk the Aeons', 'Azusa, Lost but Seeking', 'Ramunap Excavator'] - Infinite turns.
+['Walk the Aeons', 'Azusa, Lost but Seeking', 'Crucible of Worlds'] - Infinite turns.
+['Slogurk, the Overslime', 'Azusa, Lost but Seeking', 'Walk the Aeons'] - Infinite turns.
+

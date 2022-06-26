@@ -1,0 +1,10 @@
+['Dramatic Reversal', 'Isochron Scepter'] - Infinite mana nonland permanents you control can produce. Infinite storm count. Infinite magecraft triggers. Infinite untap of nonland permanents you control.
+['Drannith Magistrate', 'Knowledge Pool'] - Opponents can not cast spells.
+['Lavinia, Azorius Renegade', 'Knowledge Pool'] - Opponents can not cast spells.
+['Rest in Peace', 'Helm of Obedience'] - Mill target opponent.
+['Teferi, Time Raveler', 'Knowledge Pool'] - Opponents can not cast spells.
+['Teferi, Time Raveler', 'Displacer Kitten', 'Mox Amber'] - Infinite card draw. Infinite draw triggers. Near-infinite mana among colors of legendary creatures and planeswalkers you control. Near-infinite storm count.
+['Teferi, Time Raveler', 'Displacer Kitten', 'Mox Opal'] - Infinite card draw. Infinite draw triggers. Near-infinite colored mana. Near-infinite storm count.
+['Teferi, Time Raveler', 'Displacer Kitten', 'Mana Crypt'] - Infinite card draw. Infinite draw triggers. Near-infinite colorless mana. Near-infinite storm count.
+['Teferi, Time Raveler', 'Displacer Kitten', 'Sol Ring'] - Infinite card draw. Infinite draw triggers. Near-infinite colorless mana. Near-infinite storm count.
+Combo count:9
