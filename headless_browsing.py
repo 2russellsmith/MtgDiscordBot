@@ -11,7 +11,11 @@ from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 
 DOWNLOAD_LOCATION = str(pathlib.Path(__file__).parent.resolve()) + "/downloads"
-SERVICE = Service(ChromeDriverManager().install())
+print("Installing chrome driver manager")
+installResults = ChromeDriverManager().install()
+print("Creating the service")
+SERVICE = Service(installResults)
+print("DONE WITH THE THING!")
 
 options = Options()
 options.headless = True
