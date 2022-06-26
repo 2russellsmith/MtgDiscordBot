@@ -145,7 +145,7 @@ async def combofinder(ctx, link=None, verbose: str = "false"):
         else:
             # Get decklist from attachment
             decklist = str(requests.get(ctx.message.attachments[0].url).text)
-        analysis = combo_finder(decklist, verbose == "verbose")
+        analysis = combo_finder(decklist, True)
 
         if len(analysis) > 2000:
             await response.edit(content=analysis[0:2000])
