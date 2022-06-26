@@ -25,11 +25,11 @@ def download_link_from_moxfield(moxfield_link):
         more_button = WebDriverWait(driver, 30).until(
             EC.presence_of_element_located((By.ID, "subheader-more"))
         )
-        more_button.click()
+        driver.execute_script("arguments[0].click();", more_button)
         export_button = WebDriverWait(driver, 30).until(
             EC.presence_of_element_located((By.XPATH, "// a[contains(text(),'Export')]"))
         )
-        export_button.click()
+        driver.execute_script("arguments[0].click();", export_button)
         download_button = WebDriverWait(driver, 30).until(
             EC.presence_of_element_located((By.XPATH, "// a[contains(text(),'Download for MTGO')]"))
         )
@@ -48,7 +48,7 @@ def download_link_from_manabox(manabox_link):
         download_button = WebDriverWait(driver, 30).until(
             EC.presence_of_element_located((By.CSS_SELECTOR, '[aria-label="Download deck file"]'))
         )
-        download_button.click()
+        driver.execute_script("arguments[0].click();", download_button)
         time.sleep(3)
         return DOWNLOAD_LOCATION + "/" + os.listdir(DOWNLOAD_LOCATION)[0]
     except Exception as error:
