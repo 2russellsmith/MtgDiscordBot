@@ -1,8 +1,8 @@
 import json
 import sys
-import os
+import pathlib
 
-COMBO_LOCATION = os.getcwd() + "/combo-data.json"
+COMBO_LOCATION = str(pathlib.Path(__file__).parent.resolve()) + "/combo-data.json"
 comboDataFile = open(COMBO_LOCATION)
 data = json.load(comboDataFile)
 
