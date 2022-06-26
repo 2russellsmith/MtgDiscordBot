@@ -1,10 +1,12 @@
 import json
 import sys
+import os
 
-from typing.io import TextIO
-
-comboDataFile = open('combo-data.json')
+COMBO_LOCATION = os.getcwd() + "/combo-data.json"
+comboDataFile = open(COMBO_LOCATION)
 data = json.load(comboDataFile)
+
+
 def combo_finder(file: str):
     with open("analyzeResults.txt", 'w') as output:
         sys.stdout = output
