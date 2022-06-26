@@ -14,7 +14,6 @@ from headless_browsing import download_link_from_moxfield, download_link_from_ma
 
 # ENV_LOCATION = str(pathlib.Path(__file__).parent.resolve()) + ".env"
 load_dotenv()
-print("TOKEN: ")
 TOKEN = os.getenv('DISCORD_TOKEN')
 print("TOKEN: " + TOKEN)
 GUILD = os.getenv('DISCORD_GUILD')
@@ -123,7 +122,8 @@ async def rankings(ctx):
 
 
 @bot.command(name='combofinder', help='Finds combos and other stuff in your deck')
-async def analyze(ctx, link=None, result_type: str = ""):
+async def combofinder(ctx, link=None, result_type: str = ""):
+    print(ctx.author.name + " started a deck analysis.")
     if len(ctx.message.attachments) == 0 and link == None:
         await ctx.send("Please attach the decklist to your message, or provide a link to your decklist.")
         return
