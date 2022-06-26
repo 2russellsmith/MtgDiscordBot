@@ -26,12 +26,16 @@ def download_link_from_moxfield(moxfield_link):
             EC.presence_of_element_located((By.ID, "subheader-more"))
         )
         more_button.click()
-        export_button = driver.find_element(By.XPATH, "// a[contains(text(),'Export')]")
+        export_button = WebDriverWait(driver, 30).until(
+            EC.presence_of_element_located((By.XPATH, "// a[contains(text(),'Export')]"))
+        )
         export_button.click()
-        download_button = driver.find_element(By.XPATH, "// a[contains(text(),'Download for MTGO')]")
+        download_button = WebDriverWait(driver, 30).until(
+            EC.presence_of_element_located((By.XPATH, "// a[contains(text(),'Download for MTGO')]"))
+        )
         return download_button.get_attribute("href")
     except Exception as error:
-        print('cannot open')
+        print(error)
         return "Broken"
     finally:
         driver.quit()
@@ -48,7 +52,7 @@ def download_link_from_manabox(manabox_link):
         time.sleep(3)
         return DOWNLOAD_LOCATION + "/" + os.listdir(DOWNLOAD_LOCATION)[0]
     except Exception as error:
-        print('cannot open')
+        print(error)
         return "Broken"
     finally:
         driver.quit()
