@@ -1,7 +1,12 @@
-Combo count:4
+Combo count:9
 
-['Brallin, Skyshark Rider', 'Curiosity'] - Damage to kill each opponent. Draw a lot of cards
-['Glint-Horn Buccaneer', 'Curiosity'] - Infinite damage. Infinite card draw
-['Niv-Mizzet, Parun', 'Curiosity', 'Laboratory Maniac'] - Win the game.
-['Niv-Mizzet, Parun', 'Curiosity'] - Near-infinite damage. Infinite card draw.
+['Animate Dead', 'Worldgorger Dragon'] - Infinite colored mana. Infinite colorless mana. Infinite ETB. Infinite LTB. Infinite sacrifice triggers.
+['Kiki-Jiki, Mirror Breaker', 'Worldgorger Dragon'] - Infinite colored and colorless mana. Infinite ETB. Infinite LTB.
+['Necromancy', 'Worldgorger Dragon'] - Infinite colored mana. Infinite colorless mana. Infinite ETB. Infinite LTB. Infinite sacrifice triggers.
+['Niv-Mizzet, the Firemind', 'Curiosity'] - Infinite card draw. Infinite draw triggers. Near-infinite damage.
+['Scion of the Ur-Dragon', 'Skithiryx, the Blight Dragon', 'Moltensteel Dragon'] - Target opponent loses the game.
+['Goldspan Dragon', 'Flickering Ward'] - Infinite storm count.
+['Kiki-Jiki, Mirror Breaker', 'Faeburrow Elder', 'Aggravated Assault'] - Infinite colored mana. Infinite combat phases. Infinite creature tokens with haste. Infinite ETB.
+['Aggravated Assault', 'Old Gnawbone'] - Infinite Treasure tokens. Infinite combat phases. Infinite untap triggers.
+['Astral Dragon', 'Cursed Mirror'] - Infinite creature tokens with haste. Infinite copies of noncreature permanents you control. Infinite ETB.
 

@@ -9,17 +9,15 @@ from dotenv import load_dotenv
 from discord.ext import commands
 
 from comboFinder import combo_finder
-print("loading headless browsing")
 from headless_browsing import download_link_from_moxfield, download_link_from_manabox
-print("done loading headless browsing")
 
 
 # ENV_LOCATION = str(pathlib.Path(__file__).parent.resolve()) + ".env"
 load_dotenv()
 TOKEN = os.getenv('DISCORD_TOKEN')
-print("TOKEN: " + TOKEN)
 GUILD = os.getenv('DISCORD_GUILD')
-print("GUILD: " + GUILD)
+devId = "230534727897972737"
+mentionDev = "<@" + devId + ">"
 client = discord.Client()
 
 bot = commands.Bot(command_prefix='!')
@@ -124,37 +122,45 @@ async def rankings(ctx):
 
 
 @bot.command(name='combofinder', help='Finds combos and other stuff in your deck')
-async def combofinder(ctx, link=None, result_type: str = ""):
+async def combofinder(ctx, link=None, verbose: str = "false"):
     print(ctx.author.name + " started a deck analysis.")
-    if len(ctx.message.attachments) == 0 and link == None:
-        await ctx.send("Please attach the decklist to your message, or provide a link to your decklist.")
-        return
-    decklist = ""
-    if link is not None:
-        deck_hosted = urlparse(link).hostname
-        if deck_hosted == "www.moxfield.com":
-            file_url = download_link_from_moxfield(link)
-            decklist = str(requests.get(file_url).text)
-        elif deck_hosted == "manabox.app":
-            file_location = download_link_from_manabox(link)
-            decklist = open(file_location, "r").read()
-            os.remove(file_location)
-        else:
-            await ctx.send("We are sorry, but we do not support automatic decklist export from " + deck_hosted + " yet.")
+    response = await ctx.send("Analyzing your deck. Please wait a moment...")
+    try:
+        if len(ctx.message.attachments) == 0 and link == None:
+            await ctx.send("Please attach the decklist to your message, or provide a link to your decklist.")
             return
-    else:
-        # Get decklist from attachment
-        decklist = str(requests.get(ctx.message.attachments[0].url).text)
-    analysis = combo_finder(decklist)
-    if result_type == "File":
-        await ctx.send(file=discord.File(r'analyzeResults.txt'))
-    else:
-        await ctx.send(analysis)
+        decklist = ""
+        if link is not None:
+            deck_hosted = urlparse(link).hostname
+            if deck_hosted == "www.moxfield.com":
+                file_url = download_link_from_moxfield(link)
+                decklist = str(requests.get(file_url).text)
+            elif deck_hosted == "manabox.app":
+                file_location = download_link_from_manabox(link)
+                decklist = open(file_location, "r").read()
+                os.remove(file_location)
+            else:
+                await ctx.send("We are sorry, but we do not support automatic decklist export from " + deck_hosted + " yet.")
+                return
+        else:
+            # Get decklist from attachment
+            decklist = str(requests.get(ctx.message.attachments[0].url).text)
+        analysis = combo_finder(decklist, verbose == "verbose")
 
+        if len(analysis) > 2000:
+            await response.edit(content=analysis[0:2000])
+            for i in range(1, int(len(analysis) / 2000)):
+                await ctx.send(analysis[i * 2000: (i + 1) * 2000])
+        else:
+            await response.edit(content=analysis)
+    except Exception as error:
+        print(error)
+        await response.edit(content="You're analysis failed. It is probably your fault and not the fault of the "
+                                    "esteemed gentleman that wrote this code... But I would check with him anyway. "
+                                    + mentionDev)
 
 def print_analysis(analysis):
     return "".join(list(map(str, analysis))) + "Combo count: " + str(len(analysis))
 
 
 bot.run(TOKEN)
-print("Bot is running...")
