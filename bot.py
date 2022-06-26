@@ -8,7 +8,7 @@ from urllib.parse import urlparse
 from dotenv import load_dotenv
 from discord.ext import commands
 
-from comboFinder import combo_finder
+from comboFinder import combo_finder, combotastic_cards
 from headless_browsing import download_link_from_moxfield, download_link_from_manabox
 
 
@@ -159,8 +159,30 @@ async def combofinder(ctx, link=None, verbose: str = "false"):
                                     "esteemed gentleman that wrote this code... But I would check with him anyway. "
                                     + mentionDev)
 
+
 def print_analysis(analysis):
     return "".join(list(map(str, analysis))) + "Combo count: " + str(len(analysis))
 
+
+@bot.command(name='comboCounts', help='See what cards combo hardest')
+async def combo_counts(ctx, card_name:str = None):
+    card_combo_counts = combotastic_cards()
+    if card_name:
+        if card_name not in card_combo_counts.keys():
+            await ctx.send(card_name + " has 0 combos associated with it. Clearly an awful card... That or a possible "
+                                       "spelling error.")
+            return
+        else:
+            await ctx.send(card_name + " has " + str(card_combo_counts[card_name]) + " combos on record.")
+            return
+    sorted_card_list = sorted(card_combo_counts.items(), key=lambda kv: kv[1], reverse=True)
+    results = ""
+    rank = 0
+    for card in sorted_card_list:
+        rank += 1
+        results += str(rank) + ": " + str(card) + "\n"
+        if rank >= 30:
+            break
+    await ctx.send(results)
 
 bot.run(TOKEN)

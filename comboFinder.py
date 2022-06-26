@@ -36,3 +36,14 @@ def get_only_cards(file: str):
         else:
             result.append(line)
     return result
+
+
+def combotastic_cards() :
+    card_combo_counts = {}
+    for combo in data:
+        for card in combo["c"]:
+            if card not in card_combo_counts.keys():
+                card_combo_counts[card] = 1
+            else:
+                card_combo_counts[card] += 1
+    return card_combo_counts
