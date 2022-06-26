@@ -12,10 +12,13 @@ from comboFinder import combo_finder
 from headless_browsing import download_link_from_moxfield, download_link_from_manabox
 
 
-ENV_LOCATION = str(pathlib.Path(__file__).parent.resolve()) + ".env"
-load_dotenv(ENV_LOCATION)
+# ENV_LOCATION = str(pathlib.Path(__file__).parent.resolve()) + ".env"
+load_dotenv()
+print("TOKEN: ")
 TOKEN = os.getenv('DISCORD_TOKEN')
+print("TOKEN: " + TOKEN)
 GUILD = os.getenv('DISCORD_GUILD')
+print("GUILD: " + GUILD)
 client = discord.Client()
 
 bot = commands.Bot(command_prefix='!')
@@ -152,3 +155,4 @@ def print_analysis(analysis):
 
 
 bot.run(TOKEN)
+print("Bot is running...")
