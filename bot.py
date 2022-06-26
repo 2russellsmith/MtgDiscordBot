@@ -1,6 +1,7 @@
 # bot.py
 import os
 import discord
+import pathlib
 import requests as requests
 from urllib.parse import urlparse
 
@@ -10,7 +11,9 @@ from discord.ext import commands
 from comboFinder import combo_finder
 from headless_browsing import download_link_from_moxfield, download_link_from_manabox
 
-load_dotenv()
+
+ENV_LOCATION = str(pathlib.Path(__file__).parent.resolve()) + ".env"
+load_dotenv(ENV_LOCATION)
 TOKEN = os.getenv('DISCORD_TOKEN')
 GUILD = os.getenv('DISCORD_GUILD')
 client = discord.Client()
