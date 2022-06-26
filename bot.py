@@ -9,7 +9,9 @@ from dotenv import load_dotenv
 from discord.ext import commands
 
 from comboFinder import combo_finder
+print("loading headless browsing")
 from headless_browsing import download_link_from_moxfield, download_link_from_manabox
+print("done loading headless browsing")
 
 
 # ENV_LOCATION = str(pathlib.Path(__file__).parent.resolve()) + ".env"
