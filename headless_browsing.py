@@ -21,6 +21,7 @@ options = Options()
 options.headless = True
 prefs = {'download.default_directory' : DOWNLOAD_LOCATION}
 options.add_experimental_option('prefs', prefs)
+options.add_argument("--remote-debugging-port=9222")
 
 
 def download_link_from_moxfield(moxfield_link):

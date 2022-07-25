@@ -11,8 +11,9 @@ from discord.ext import commands
 from comboFinder import combo_finder, combotastic_cards
 from headless_browsing import download_link_from_moxfield, download_link_from_manabox
 
-
 # ENV_LOCATION = str(pathlib.Path(__file__).parent.resolve()) + ".env"
+from simulation import run_simulation
+
 load_dotenv()
 TOKEN = os.getenv('DISCORD_TOKEN')
 GUILD = os.getenv('DISCORD_GUILD')
@@ -101,7 +102,7 @@ async def vs_decks(ctx, player1input: str, player2input: str):
     total_games_together = 0
     for game in games:
         if player1 in game.values() \
-                and player2 in game.values()\
+                and player2 in game.values() \
                 and player1_deck in game.values() \
                 and player2_deck in game.values():
             if game["winner"] == player1 and game["winningDeck"] == player1_deck:
@@ -110,15 +111,17 @@ async def vs_decks(ctx, player1input: str, player2input: str):
                 player2wins += 1
             total_games_together += 1
 
-    await ctx.send(player1input + " and " + player2input + " have played " + str(total_games_together) + " game(s) together.\n"
-                   + player1input + " has won " + str(player1wins) + ".\n"
-                   + player2input + " has won " + str(player2wins) + ".\n")
+    await ctx.send(
+        player1input + " and " + player2input + " have played " + str(total_games_together) + " game(s) together.\n"
+        + player1input + " has won " + str(player1wins) + ".\n"
+        + player2input + " has won " + str(player2wins) + ".\n")
 
 
 @bot.command(name='rankings', help='See who is the best')
 async def rankings(ctx):
-    await ctx.send("Rankings:\n 1) Russell's Rielle Deck \n2) Russell's Gitrog Deck \n3)Russell's Scion of the Ur Dragon"
-                   " Deck \n4)Russell's Other Decks \n5) Everyone else's Decks")
+    await ctx.send(
+        "Rankings:\n 1) Russell's Rielle Deck \n2) Russell's Gitrog Deck \n3)Russell's Scion of the Ur Dragon"
+        " Deck \n4)Russell's Other Decks \n5) Everyone else's Decks")
 
 
 @bot.command(name='combofinder', help='Finds combos and other stuff in your deck')
@@ -140,19 +143,14 @@ async def combofinder(ctx, link=None, verbose: str = "false"):
                 decklist = open(file_location, "r").read()
                 os.remove(file_location)
             else:
-                await ctx.send("We are sorry, but we do not support automatic decklist export from " + deck_hosted + " yet.")
+                await ctx.send(
+                    "We are sorry, but we do not support automatic decklist export from " + deck_hosted + " yet.")
                 return
         else:
             # Get decklist from attachment
             decklist = str(requests.get(ctx.message.attachments[0].url).text)
         analysis = combo_finder(decklist, True)
-
-        if len(analysis) > 2000:
-            await response.edit(content=analysis[0:2000])
-            for i in range(1, int(len(analysis) / 2000)):
-                await ctx.send(analysis[i * 2000: (i + 1) * 2000])
-        else:
-            await response.edit(content=analysis)
+        send_large_message(ctx, response, analysis)
     except Exception as error:
         print(error)
         await response.edit(content="You're analysis failed. It is probably your fault and not the fault of the "
@@ -165,7 +163,7 @@ def print_analysis(analysis):
 
 
 @bot.command(name='comboCounts', help='See what cards combo hardest')
-async def combo_counts(ctx, card_name:str = None):
+async def combo_counts(ctx, card_name: str = None):
     card_combo_counts = combotastic_cards()
     if card_name:
         if card_name not in card_combo_counts.keys():
@@ -184,5 +182,29 @@ async def combo_counts(ctx, card_name:str = None):
         if rank >= 30:
             break
     await ctx.send(results)
+
+
+@bot.command(name='goldfish', help='See who is the best')
+async def goldfish(ctx, deck_name:str = "Draconic Domination.dck", game_count: int = 1):
+    response = await ctx.send("Running Simulations for " + deck_name + "... Please wait a moment as this can take several minutes...")
+    try:
+        simulation_results = run_simulation(deck_name, game_count)
+        log_list = simulation_results.split("\n")
+        logs = "\n".join([line for line in log_list if 'Game outcome' in line or 'Game Result' in line])
+        await send_large_message(ctx, response, logs)
+
+    except Exception as error:
+        print(error)
+        await response.edit(content="Simulation down!... it is not surprising... it's complicated.")
+
+
+async def send_large_message(ctx, response, text):
+    if len(text) > 2000:
+        await response.edit(content=text[0:2000])
+        for i in range(1, int(len(text) / 2000) + 1):
+            await ctx.send(text[i * 2000: (i + 1) * 2000])
+    else:
+        await response.edit(content=text)
+
 
 bot.run(TOKEN)
