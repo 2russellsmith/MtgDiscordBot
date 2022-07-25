@@ -150,7 +150,7 @@ async def combofinder(ctx, link=None, verbose: str = "false"):
             # Get decklist from attachment
             decklist = str(requests.get(ctx.message.attachments[0].url).text)
         analysis = combo_finder(decklist, True)
-        send_large_message(ctx, response, analysis)
+        await send_large_message(ctx, response, analysis)
     except Exception as error:
         print(error)
         await response.edit(content="You're analysis failed. It is probably your fault and not the fault of the "
